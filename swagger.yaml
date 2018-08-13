@@ -1,0 +1,61 @@
+---
+swagger: "2.0"
+info:
+  description: "Credential Issuer API definition"
+  version: "1.0.0"
+  title: "Credential Issuer API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+schemes:
+- "https"
+- "http"
+paths:
+  /issue-credential:
+    post:
+      summary: "Issues a wallet credential for the provided DNI"
+      operationId: "issueCredential"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User DNI to issue a credential for"
+        required: true
+        schema:
+          $ref: "#/definitions/IssueCredentialRequest"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/IssueCredentialResponse"
+        403:
+          description: "Invalid ID"
+          schema:
+            $ref: "#/definitions/IssueCrential403Error"
+      x-swagger-router-controller: "Default"
+definitions:
+  IssueCredentialRequest:
+    type: "object"
+    required:
+    - "dni"
+    properties:
+      dni:
+        type: "string"
+        example: "12345678A"
+    example:
+      dni: "12345678A"
+  IssueCredentialResponse:
+    type: "object"
+    properties:
+      credential:
+        type: "string"
+        default: "1234567890"
+  IssueCredential403Error:
+    type: "object"
+    properties:
+      error:
+        type: "string"
+        default: "The specified ID is not valid"
