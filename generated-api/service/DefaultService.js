@@ -1,5 +1,6 @@
 'use strict';
 
+const { respondWithCode } = require('../utils/writer');
 
 /**
  * Issues a wallet credential for the provided DNI
@@ -8,16 +9,11 @@
  * returns IssueCredentialResponse
  **/
 exports.issueCredential = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "credential" : "1234567890"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+  return new Promise((resolve, reject) => {
+    if (body.dni === 'invalid') {
+      reject(respondWithCode(403, { error: "The specified ID is not valid" }))
     } else {
-      resolve();
+      resolve({ "credential" : "123456789" });
     }
   });
 }
-

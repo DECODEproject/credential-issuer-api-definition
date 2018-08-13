@@ -29,6 +29,8 @@ docker run --rm -ti -p 8080:8080 credential-issuer-api
 
 ## Checking that it works
 
+Run the following curl request (any DNI value except "invalid" will be accepted).
+
 ```
 curl -X POST \
   http://localhost:8080/issue-credential \
@@ -43,5 +45,24 @@ The response should be:
 ```
 {
   "credential": "1234567890"
+}
+```
+
+### Checking a failing case
+
+```
+curl -X POST \
+  http://localhost:8080/issue-credential \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"dni": "invalid"
+}'
+```
+
+The response should be:
+
+```
+{
+  "error": "The specified ID is not valid"
 }
 ```
