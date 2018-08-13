@@ -34,7 +34,7 @@ paths:
         403:
           description: "Invalid ID"
           schema:
-            $ref: "#/definitions/IssueCrential403Error"
+            $ref: "#/definitions/IssueCredential403Error"
       x-swagger-router-controller: "Default"
 definitions:
   IssueCredentialRequest:

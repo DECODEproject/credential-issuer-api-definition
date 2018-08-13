@@ -12,3 +12,36 @@ docker run --rm -v ${PWD}:/local swaggerapi/swagger-codegen-cli generate -i /loc
 ```
 
 And after, the code has been modified to add some error cases.
+
+## Build and start generated API with Docker
+
+Build the Docker image:
+
+```
+docker build -t credential-issuer-api .
+```
+
+Start the generated server:
+
+```
+docker run --rm -ti -p 8080:8080 credential-issuer-api
+```
+
+## Checking that it works
+
+```
+curl -X POST \
+  http://localhost:8080/issue-credential \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"dni": "12345678A"
+}'
+```
+
+The response should be:
+
+```
+{
+  "credential": "1234567890"
+}
+```
