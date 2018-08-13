@@ -35,6 +35,10 @@ paths:
           description: "Invalid ID"
           schema:
             $ref: "#/definitions/IssueCredential403Error"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/IssueCredential500Error"
       x-swagger-router-controller: "Default"
 definitions:
   IssueCredentialRequest:
@@ -59,3 +63,9 @@ definitions:
       error:
         type: "string"
         default: "The specified ID is not valid"
+  IssueCredential500Error:
+    type: "object"
+    properties:
+      error:
+        type: "string"
+        default: "There was an error while issuing the credential"
